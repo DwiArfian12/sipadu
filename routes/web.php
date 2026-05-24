@@ -54,7 +54,7 @@ Route::middleware(['auth', 'verified'])->prefix('superadmin')->name('superadmin.
         Route::delete('/{field}', [DataFieldController::class, 'destroy'])->name('destroy');
     });
 
-    // Data Records (nested under Data Type) - Superadmin can access ALL
+     // Data Records (nested under Data Type) - Superadmin can access ALL
     Route::prefix('data-types/{dataType}/records')->name('data-types.records.')->group(function () {
         Route::get('/', [SuperadminDataRecordController::class, 'index'])->name('index');
         Route::get('/create', [SuperadminDataRecordController::class, 'create'])->name('create');
@@ -63,6 +63,9 @@ Route::middleware(['auth', 'verified'])->prefix('superadmin')->name('superadmin.
         Route::put('/{record}', [SuperadminDataRecordController::class, 'update'])->name('update');
         Route::delete('/{record}', [SuperadminDataRecordController::class, 'destroy'])->name('destroy');
         Route::get('/export', [SuperadminDataRecordController::class, 'index'])->name('export'); // export via ?export=excel
+        // Import & Template
+        Route::get('/template/download', [SuperadminDataRecordController::class, 'downloadTemplate'])->name('template');
+        Route::post('/import', [SuperadminDataRecordController::class, 'import'])->name('import');
     });
 
     // Users Management
@@ -92,6 +95,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::put('/{record}', [AdminDataRecordController::class, 'update'])->name('update');
         Route::delete('/{record}', [AdminDataRecordController::class, 'destroy'])->name('destroy');
         Route::get('/export', [AdminDataRecordController::class, 'index'])->name('export'); // export via ?export=excel
+        // Import & Template
+        Route::get('/template/download', [AdminDataRecordController::class, 'downloadTemplate'])->name('template');
+        Route::post('/import', [AdminDataRecordController::class, 'import'])->name('import');
     });
 });
 

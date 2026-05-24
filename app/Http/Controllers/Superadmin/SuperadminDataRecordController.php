@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Admin\DataRecordController;
+use App\Http\Controllers\Traits\HandlesDataImport;
 use App\Models\DataType;
 
 class SuperadminDataRecordController extends DataRecordController
 {
+    use HandlesDataImport;
+
     /**
      * Override index to use superadmin view
      */

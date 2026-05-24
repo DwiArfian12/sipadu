@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\HandlesDataImport;
 use App\Models\DataField;
 use App\Models\DataRecord;
 use App\Models\DataRecordValue;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class DataRecordController extends Controller
 {
+    use HandlesDataImport;
+
     protected function getAccessibleDataTypes()
     {
         if (auth()->user()->isSuperadmin()) {

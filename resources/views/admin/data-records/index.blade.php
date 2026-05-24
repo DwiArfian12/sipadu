@@ -9,7 +9,7 @@
         <h2 class="text-2xl font-bold">{{ $dataType->name }}</h2>
         <p class="text-gray-500">{{ $dataType->description }}</p>
     </div>
-    <div class="space-x-2">
+    <div class="space-x-2 flex flex-wrap gap-2">
         <a href="{{ route('admin.dashboard') }}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400">
             <i class="fas fa-arrow-left mr-2"></i>Kembali
         </a>
@@ -17,12 +17,30 @@
         <a href="{{ route('admin.data-types.records.create', $dataType) }}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
             <i class="fas fa-plus mr-2"></i>Tambah Data
         </a>
+        <a href="{{ route('admin.data-types.records.template', $dataType) }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+            <i class="fas fa-download mr-2"></i>Download Template
+        </a>
+        <button onclick="document.getElementById('importModal').classList.remove('hidden')" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
+            <i class="fas fa-upload mr-2"></i>Import Excel
+        </button>
         @endif
         <a href="?{{ http_build_query(array_merge(request()->except('export'), ['export' => 'excel'])) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             <i class="fas fa-download mr-2"></i>Export Excel
         </a>
     </div>
 </div>
+
+<!-- Import Errors -->
+@if(session('import_errors'))
+<div class="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+    <h4 class="font-semibold mb-2"><i class="fas fa-exclamation-triangle mr-2"></i>Error Import ({{ count(session('import_errors')) }})</h4>
+    <ul class="list-disc list-inside text-sm space-y-1 max-h-40 overflow-y-auto">
+        @foreach(session('import_errors') as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 <!-- Search & Filter -->
 <div class="bg-white rounded-lg shadow p-4 mb-6">
@@ -128,4 +146,34 @@
 <div class="mt-4">
     {{ $records->links() }}
 </div>
+
+<!-- Import Modal -->
+@if($hasAccess)
+<div id="importModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6">
+        <h3 class="text-lg font-semibold mb-4">Import Data {{ $dataType->name }}</h3>
+        <form action="{{ route('admin.data-types.records.import', $dataType) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih File Excel</label>
+                <input type="file" name="file" accept=".xlsx,.xls,.csv" required class="w-full border rounded px-3 py-2">
+                <p class="text-xs text-gray-500 mt-1">Format: .xlsx, .xls, atau .csv (Maks 10MB)</p>
+            </div>
+            <div class="mb-4 p-3 bg-blue-50 rounded text-sm text-blue-700">
+                <i class="fas fa-info-circle mr-1"></i>
+                Pastikan header file sesuai dengan template. 
+                <a href="{{ route('admin.data-types.records.template', $dataType) }}" class="underline font-semibold">Download template</a> terlebih dahulu.
+            </div>
+            <div class="flex space-x-3">
+                <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
+                    <i class="fas fa-upload mr-2"></i>Import
+                </button>
+                <button type="button" onclick="document.getElementById('importModal').classList.add('hidden')" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endif
 @endsection
