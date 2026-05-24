@@ -39,9 +39,17 @@ class DataFieldController extends Controller
         $validated['name'] = $validated['name'] ?: Str::slug($validated['label'], '_');
         $validated['data_type_id'] = $dataType->id;
 
-        // Parse dropdown options
+        // Parse dropdown options - support both newline and comma separation
         if ($request->type === 'dropdown' && $request->filled('options')) {
-            $validated['options'] = array_map('trim', explode("\n", $request->options));
+            $optionsStr = $request->options;
+            // If options contain commas but no newlines, split by comma
+            if (strpos($optionsStr, ',') !== false && strpos($optionsStr, "\n") === false) {
+                $validated['options'] = array_map('trim', explode(',', $optionsStr));
+            } else {
+                $validated['options'] = array_map('trim', explode("\n", $optionsStr));
+            }
+            // Filter out empty values
+            $validated['options'] = array_values(array_filter($validated['options'], fn($v) => $v !== ''));
         } else {
             $validated['options'] = null;
         }
@@ -74,8 +82,17 @@ class DataFieldController extends Controller
 
         $validated['name'] = $validated['name'] ?: Str::slug($validated['label'], '_');
 
+        // Parse dropdown options - support both newline and comma separation
         if ($request->type === 'dropdown' && $request->filled('options')) {
-            $validated['options'] = array_map('trim', explode("\n", $request->options));
+            $optionsStr = $request->options;
+            // If options contain commas but no newlines, split by comma
+            if (strpos($optionsStr, ',') !== false && strpos($optionsStr, "\n") === false) {
+                $validated['options'] = array_map('trim', explode(',', $optionsStr));
+            } else {
+                $validated['options'] = array_map('trim', explode("\n", $optionsStr));
+            }
+            // Filter out empty values
+            $validated['options'] = array_values(array_filter($validated['options'], fn($v) => $v !== ''));
         } else {
             $validated['options'] = null;
         }

@@ -118,8 +118,9 @@
                     </select>
                 </div>
                 <div id="optionsContainer" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700">Opsi (pisahkan dengan koma)</label>
-                    <input type="text" name="options" class="w-full border rounded px-3 py-2" placeholder="Opsi 1, Opsi 2, Opsi 3">
+                    <label class="block text-sm font-medium text-gray-700">Opsi Dropdown</label>
+                    <textarea name="options" rows="4" class="w-full border rounded px-3 py-2" placeholder="Opsi 1&#10;Opsi 2&#10;Opsi 3"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Isi satu pilihan per baris.</p>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <label class="flex items-center space-x-2">
@@ -178,8 +179,9 @@
                     </select>
                 </div>
                 <div id="editOptionsContainer" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700">Opsi (pisahkan dengan koma)</label>
-                    <input type="text" name="options" id="editOptions" class="w-full border rounded px-3 py-2">
+                    <label class="block text-sm font-medium text-gray-700">Opsi Dropdown</label>
+                    <textarea name="options" id="editOptions" rows="4" class="w-full border rounded px-3 py-2" placeholder="Opsi 1&#10;Opsi 2&#10;Opsi 3"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Isi satu pilihan per baris.</p>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <label class="flex items-center space-x-2">
@@ -230,7 +232,8 @@ function editField(id, label, name, type, required, showInTable, isSearchable, i
     const optionsContainer = document.getElementById('editOptionsContainer');
     if (type === 'dropdown') {
         optionsContainer.classList.remove('hidden');
-        document.getElementById('editOptions').value = options ? options.join(', ') : '';
+        // Gabungkan array options dengan newline, bukan koma
+        document.getElementById('editOptions').value = options ? options.join('\n') : '';
     } else {
         optionsContainer.classList.add('hidden');
     }
