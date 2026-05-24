@@ -38,16 +38,30 @@
                     <i class="fas fa-spider w-5 text-center"></i>
                     <span class="ml-3 nav-text">Crawling & API</span>
                 </a>
+
+                <!-- Divider & Daftar Jenis Data -->
                 <div class="border-t border-blue-700 my-2 nav-text"></div>
+                <div class="px-3 py-1 text-xs text-blue-400 uppercase tracking-wider nav-text">Daftar Jenis Data</div>
                 @php
-                    $dataTypes = auth()->user()->dataTypes;
+                    $allDataTypes = \App\Models\DataType::orderBy('name')->get();
+                    $assignedIds = auth()->user()->dataTypes->pluck('id')->toArray();
                 @endphp
-                @foreach($dataTypes as $dt)
-                    <a href="{{ route('admin.data-types.records.index', $dt) }}" 
-                       class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->url() === route('admin.data-types.records.index', $dt) ? 'bg-blue-700' : 'hover:bg-blue-700' }}">
-                        <i class="fas fa-table w-5 text-center"></i>
-                        <span class="ml-3 nav-text">{{ $dt->name }}</span>
-                    </a>
+                @foreach($allDataTypes as $dt)
+                    @if(in_array($dt->id, $assignedIds))
+                        <a href="{{ route('admin.data-types.records.index', $dt) }}" 
+                           class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->url() === route('admin.data-types.records.index', $dt) ? 'bg-blue-700' : 'hover:bg-blue-700' }}">
+                            <i class="fas fa-table w-5 text-center"></i>
+                            <span class="ml-3 nav-text">{{ $dt->name }}</span>
+                            <i class="fas fa-check-circle ml-auto text-xs text-green-400 nav-text"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('admin.data-types.records.index', $dt) }}" 
+                           class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->url() === route('admin.data-types.records.index', $dt) ? 'bg-blue-700' : 'hover:bg-blue-700' }}">
+                            <i class="fas fa-table w-5 text-center"></i>
+                            <span class="ml-3 nav-text">{{ $dt->name }}</span>
+                            <i class="fas fa-eye ml-auto text-xs text-blue-400 nav-text"></i>
+                        </a>
+                    @endif
                 @endforeach
             </nav>
             <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-blue-700">

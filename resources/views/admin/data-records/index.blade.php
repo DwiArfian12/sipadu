@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('title', 'Data ' . $dataType->name)
 @section('content')
+@php
+    $hasAccess = auth()->user()->isSuperadmin() || auth()->user()->dataTypes()->where('data_types.id', $dataType->id)->exists();
+@endphp
 <div class="flex justify-between items-center mb-6">
     <div>
         <h2 class="text-2xl font-bold">{{ $dataType->name }}</h2>
@@ -10,9 +13,11 @@
         <a href="{{ route('admin.dashboard') }}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400">
             <i class="fas fa-arrow-left mr-2"></i>Kembali
         </a>
+        @if($hasAccess)
         <a href="{{ route('admin.data-types.records.create', $dataType) }}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
             <i class="fas fa-plus mr-2"></i>Tambah Data
         </a>
+        @endif
         <a href="?{{ http_build_query(array_merge(request()->except('export'), ['export' => 'excel'])) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             <i class="fas fa-download mr-2"></i>Export Excel
         </a>
@@ -92,6 +97,7 @@
                 </td>
                 @endforeach
                 <td class="py-3 px-4 text-sm">
+                    @if($hasAccess)
                     <div class="flex space-x-2">
                         <a href="{{ route('admin.data-types.records.edit', [$dataType, $record]) }}" class="text-yellow-600 hover:text-yellow-800">
                             <i class="fas fa-edit"></i>
@@ -101,13 +107,16 @@
                             <button type="submit" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
                         </form>
                     </div>
+                    @else
+                    <span class="text-gray-400 text-xs italic">Hanya lihat</span>
+                    @endif
                 </td>
             </tr>
             @empty
             <tr>
                 <td colspan="{{ count($tableFields) + 2 }}" class="py-12 text-center text-gray-400">
                     <i class="fas fa-database text-3xl mb-2 block"></i>
-                    Belum ada data. Klik "Tambah Data" untuk menambahkan.
+                    Belum ada data.
                 </td>
             </tr>
             @endforelse

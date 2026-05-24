@@ -34,7 +34,7 @@
                     <span class="ml-3 nav-text">Dashboard</span>
                 </a>
                 <a href="{{ route('superadmin.data-types.index') }}" 
-                   class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('superadmin.data-types.*') ? 'bg-green-700' : 'hover:bg-green-700' }}">
+                   class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('superadmin.data-types.*') && !request()->routeIs('superadmin.data-types.records.*') ? 'bg-green-700' : 'hover:bg-green-700' }}">
                     <i class="fas fa-database w-5 text-center"></i>
                     <span class="ml-3 nav-text">Jenis Data</span>
                 </a>
@@ -48,6 +48,20 @@
                     <i class="fas fa-spider w-5 text-center"></i>
                     <span class="ml-3 nav-text">Crawling & API</span>
                 </a>
+
+                <!-- Divider & Daftar Jenis Data -->
+                <div class="border-t border-green-700 my-2 nav-text"></div>
+                <div class="px-3 py-1 text-xs text-green-400 uppercase tracking-wider nav-text">Daftar Jenis Data</div>
+                @php
+                    $allDataTypes = \App\Models\DataType::orderBy('name')->get();
+                @endphp
+                @foreach($allDataTypes as $dt)
+                    <a href="{{ route('superadmin.data-types.records.index', $dt) }}" 
+                       class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->url() === route('superadmin.data-types.records.index', $dt) ? 'bg-green-700' : 'hover:bg-green-700' }}">
+                        <i class="fas fa-table w-5 text-center"></i>
+                        <span class="ml-3 nav-text">{{ $dt->name }}</span>
+                    </a>
+                @endforeach
             </nav>
             <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-green-700">
                 <form method="POST" action="{{ route('logout') }}">

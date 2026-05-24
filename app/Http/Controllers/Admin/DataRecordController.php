@@ -22,8 +22,7 @@ class DataRecordController extends Controller
 
     public function index(Request $request, DataType $dataType)
     {
-        $this->authorizeAccess($dataType);
-
+        // Semua admin bisa melihat data (read-only), hanya create/edit/delete yang di-restrict
         $allFields = $dataType->fields()->orderBy('order')->get();
         $tableFields = $allFields->where('show_in_table', true);
 
