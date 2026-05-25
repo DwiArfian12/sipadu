@@ -6,8 +6,8 @@
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License">
 </p>
 
-<h1 align="center">📊 SIPADU UNY</h1>
-<h3 align="center">Sistem Informasi Pusat Data - Universitas Negeri Yogyakarta</h3>
+<h1 align="center">📊 AFDAPER</h1>
+<h3 align="center">Aplikasi Feeder Data Pemeringkatan UNY - Universitas Negeri Yogyakarta</h3>
 
 <p align="center">
     Aplikasi manajemen data dinamis berbasis web yang memungkinkan pembuatan jenis data kustom, 
@@ -39,9 +39,9 @@
 
 ## 🎯 Tentang Aplikasi
 
-**SIPADU UNY** (Sistem Informasi Pusat Data Universitas Negeri Yogyakarta) adalah aplikasi manajemen data yang fleksibel dan dinamis. Aplikasi ini memungkinkan institusi untuk mendefinisikan **jenis data kustom** (seperti Berita, Mahasiswa, Dosen, Penelitian, dll.) beserta field-fieldnya secara dinamis tanpa perlu mengubah kode program.
+**AFDAPER** (Aplikasi Feeder Data Pemeringkatan UNY Universitas Negeri Yogyakarta) adalah aplikasi manajemen data yang fleksibel dan dinamis. Aplikasi ini memungkinkan institusi untuk mendefinisikan **jenis data kustom** (seperti Berita, Mahasiswa, Dosen, Penelitian, dll.) beserta field-fieldnya secara dinamis tanpa perlu mengubah kode program.
 
-Dengan pendekatan **Entity-Attribute-Value (EAV)** yang diimplementasikan secara modern, SIPADU memberikan fleksibilitas penuh dalam pengelolaan data dengan fitur:
+Dengan pendekatan **Entity-Attribute-Value (EAV)** yang diimplementasikan secara modern, AFDAPER memberikan fleksibilitas penuh dalam pengelolaan data dengan fitur:
 
 - ✅ **Dynamic Data Types** — Buat jenis data baru kapan saja
 - ✅ **Custom Fields** — Tentukan field dengan berbagai tipe data
@@ -134,7 +134,7 @@ Dengan pendekatan **Entity-Attribute-Value (EAV)** yang diimplementasikan secara
 
 ### Pola Desain: EAV (Entity-Attribute-Value)
 
-SIPADU menggunakan pola EAV untuk menyimpan data dengan struktur dinamis:
+AFDAPER menggunakan pola EAV untuk menyimpan data dengan struktur dinamis:
 
 - **`data_types`** — Entity (entitas): menyimpan definisi jenis data
 - **`data_fields`** — Attribute (atribut): menyimpan definisi field
@@ -237,8 +237,8 @@ Sebelum memulai instalasi, pastikan sistem Anda memenuhi persyaratan berikut:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/DwiArfian12/sipadu.git
-cd sipadu
+git clone https://github.com/DwiArfian12/afdaper.git
+cd afdaper
 ```
 
 ### 2. Install Dependencies PHP
@@ -262,7 +262,7 @@ cp .env.example .env
 Kemudian edit file `.env` dan sesuaikan konfigurasi database:
 
 ```env
-APP_NAME=SIPADU_UNY
+APP_NAME=AFDAPER
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
@@ -270,7 +270,7 @@ APP_URL=http://localhost
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=sipadu_uny
+DB_DATABASE=afdaper
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -286,7 +286,7 @@ php artisan key:generate
 Buat database MySQL dengan nama yang sesuai dengan konfigurasi `.env` Anda:
 
 ```sql
-CREATE DATABASE sipadu_uny CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE afdaper CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 ### 7. Jalankan Migrasi
@@ -325,7 +325,7 @@ Akses aplikasi di: **http://localhost:8000**
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=sipadu_uny
+DB_DATABASE=afdaper
 DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
@@ -414,7 +414,7 @@ Setelah login sebagai Admin Data, Anda akan melihat:
 
 ## 🌐 API Endpoints
 
-SIPADU menyediakan endpoint API dasar menggunakan Laravel Sanctum:
+AFDAPER menyediakan endpoint API dasar menggunakan Laravel Sanctum:
 
 | Method | Endpoint | Deskripsi | Auth |
 |--------|----------|-----------|------|
@@ -426,7 +426,7 @@ SIPADU menyediakan endpoint API dasar menggunakan Laravel Sanctum:
 
 ## 🕷 Crawling & Integrasi API
 
-SIPADU menyediakan antarmuka untuk integrasi data dari sumber eksternal:
+AFDAPER menyediakan antarmuka untuk integrasi data dari sumber eksternal:
 
 ### Manual Crawling
 - Masukkan URL target website
@@ -544,7 +544,7 @@ Kami menyambut kontribusi dari semua pihak! Untuk berkontribusi:
 
 ## 📄 Lisensi
 
-**SIPADU UNY** adalah aplikasi open-source yang dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
+**AFDAPER** adalah aplikasi open-source yang dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 

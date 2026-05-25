@@ -276,9 +276,9 @@ class DataTypeSeeder extends Seeder
         ]);
 
         // Assign admin to data types
-        $adminBerita = User::where('email', 'admin.berita@sipadu.uny.ac.id')->first();
-        $adminMahasiswa = User::where('email', 'admin.mahasiswa@sipadu.uny.ac.id')->first();
-        $adminDosen = User::where('email', 'admin.dosen@sipadu.uny.ac.id')->first();
+        $adminBerita = User::where('email', 'admin.berita@afdaper.uny.ac.id')->first();
+        $adminMahasiswa = User::where('email', 'admin.mahasiswa@afdaper.uny.ac.id')->first();
+        $adminDosen = User::where('email', 'admin.dosen@afdaper.uny.ac.id')->first();
 
         if ($adminBerita) {
             $adminBerita->dataTypes()->attach($berita->id);

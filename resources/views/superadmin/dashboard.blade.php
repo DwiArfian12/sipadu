@@ -3,7 +3,7 @@
 @section('content')
 <div class="mb-6">
     <h2 class="text-2xl font-bold">Dashboard Superadmin</h2>
-    <p class="text-gray-500">Selamat datang, {{ auth()->user()->name }}! Kelola seluruh data dan pengguna SIPADU UNY.</p>
+    <p class="text-gray-500">Selamat datang, {{ auth()->user()->name }}! Kelola seluruh data dan pengguna AFDAPER.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow p-6">
